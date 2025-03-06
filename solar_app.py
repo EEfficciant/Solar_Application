@@ -3,26 +3,29 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 
-# Apply custom styling for a green theme with black text
+# Apply custom styling for black text and table, with background image
 st.markdown(
     """
     <style>
     body {
         background-color: #e6ffe6;
         color: black;
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
     .stApp {
-        background-color: #e6ffe6;
+        background-color: rgba(230, 255, 230, 0.9);
         color: black;
     }
-    .stTitle {
-        color: black;
+    .stTitle, .stMarkdown, .css-1aumxhk, .stTable, .stDataFrame {
+        color: black !important;
     }
-    .stMarkdown {
-        color: black;
-    }
-    .css-1aumxhk {
-        color: black;
+    .stDownloadButton {
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid black !important;
     }
     </style>
     """,
@@ -97,7 +100,6 @@ def calculate_solar_analysis(average_kwh_consumption):
 
 # Streamlit UI
 st.title("Solar Energy Cost Analysis")
-st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg", use_container_width=True)
 
 st.markdown("## The Importance of Green Energy")
 st.markdown("""
@@ -129,4 +131,4 @@ st.pyplot(fig)
 if st.button("Download Excel Report"):
     excel_buffer = io.BytesIO()
     df.to_excel(excel_buffer, index=False, engine='openpyxl')
-    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key="download-btn", help="Download the Excel report")
