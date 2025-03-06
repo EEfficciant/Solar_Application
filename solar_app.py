@@ -137,7 +137,7 @@ st.table(df)
 st.markdown("## Cost Comparison Over 20 Years")
 fig, ax = plt.subplots()
 years = list(range(1, 21))
-cost_projection = [df.iloc[4, 1] * ((1 + 0.07) ** i) for i in years]
+cost_projection = [float(df.iloc[4, 1].replace('$', '').replace(',', '')) * ((1 + 0.07) ** i) for i in years]
 ax.plot(years, cost_projection, marker='o', linestyle='-', color='green', label="Projected Cost with 7% Increase")
 ax.set_xlabel("Years")
 ax.set_ylabel("Estimated Cost ($)")
