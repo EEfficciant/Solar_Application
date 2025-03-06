@@ -3,13 +3,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 
-# Apply custom styling for black text and table, with background image
+# Apply custom styling for black text and uniform font
 st.markdown(
     """
     <style>
     body {
         background-color: #e6ffe6;
         color: black !important;
+        font-family: Arial, sans-serif !important;
         background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg');
         background-size: cover;
         background-repeat: no-repeat;
@@ -17,6 +18,7 @@ st.markdown(
     }
     .stApp, .stTable, .stDataFrame, .stMarkdown, .stTitle, .css-1aumxhk, .stButton, .stDownloadButton, .stTextInput, .stNumberInput, .stRadio, .stCheckbox, .stSelectbox, .stMultiselect, .stSlider, .stTextArea, .stColorPicker {
         color: black !important;
+        font-family: Arial, sans-serif !important;
         background-color: rgba(230, 255, 230, 0.9) !important;
         border-color: black !important;
     }
@@ -26,15 +28,17 @@ st.markdown(
         border: 1px solid black !important;
     }
     .stButton>button {
-        background-color: black !important;
+        background-color: white !important;
         color: black !important;
         border: 1px solid black !important;
     }
     table {
         color: black !important;
+        font-family: Arial, sans-serif !important;
     }
     th, td {
         color: black !important;
+        font-family: Arial, sans-serif !important;
     }
     </style>
     """,
@@ -94,12 +98,12 @@ def calculate_solar_analysis(average_kwh_consumption):
             "Tax Rebate Amount for Solar System (30%)"
         ],
         "Value": [
-            str(monthly_kwh_consumption),
-            str(monthly_current_cost_peak),
-            str(round(panels_needed_with_buffer)),
-            str(monthly_current_cost_regular),
-            str(monthly_future_cost_peak),
-            str(monthly_future_cost_regular),
+            f"{monthly_kwh_consumption:,.0f}",
+            f"${monthly_current_cost_peak:,.2f}",
+            f"{round(panels_needed_with_buffer)}",
+            f"${monthly_current_cost_regular:,.2f}",
+            f"${monthly_future_cost_peak:,.2f}",
+            f"${monthly_future_cost_regular:,.2f}",
             f"${total_solar_cost_min:,.2f} - ${total_solar_cost_max:,.2f}",
             f"${solar_tax_rebate_min:,.2f} - ${solar_tax_rebate_max:,.2f}"
         ]
