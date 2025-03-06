@@ -134,10 +134,10 @@ df = calculate_solar_analysis(average_kwh)
 st.table(df)
 
 # Add back the Excel download button
-if st.button("Download Excel Report"):
+if st.button("Download Excel Report", key="download-btn-main"):
     excel_buffer = io.BytesIO()
     df.to_excel(excel_buffer, index=False, engine='openpyxl')
-    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key="download-btn", help="Download the Excel report")
+    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key="download-btn-final", help="Download the Excel report")
 
 # Visualization
 st.markdown("## Cost Comparison Over 20 Years")
@@ -150,7 +150,7 @@ ax.set_ylabel("Estimated Cost ($)")
 ax.legend()
 st.pyplot(fig)
 
-if st.button("Download Excel Report"):
+if st.button("Download Excel Report", key="download-btn-main"):
     excel_buffer = io.BytesIO()
     df.to_excel(excel_buffer, index=False, engine='openpyxl')
-    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key="download-btn", help="Download the Excel report")
+    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key="download-btn-final", help="Download the Excel report")
