@@ -3,48 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 
-# Apply custom styling for black text and uniform font
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: #e6ffe6;
-        color: black !important;
-        font-family: Arial, sans-serif !important;
-        background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    .stApp, .stTable, .stDataFrame, .stMarkdown, .stTitle, .css-1aumxhk, .stButton, .stDownloadButton, .stTextInput, .stNumberInput, .stRadio, .stCheckbox, .stSelectbox, .stMultiselect, .stSlider, .stTextArea, .stColorPicker {
-        color: black !important;
-        font-family: Arial, sans-serif !important;
-        background-color: rgba(230, 255, 230, 0.9) !important;
-        border-color: black !important;
-    }
-    .stDownloadButton {
-        background-color: white !important;
-        color: black !important;
-        border: 1px solid black !important;
-    }
-    .stButton>button {
-        background-color: white !important;
-        color: black !important;
-        border: 1px solid black !important;
-    }
-    table {
-        color: black !important;
-        font-family: Arial, sans-serif !important;
-    }
-    th, td {
-        color: black !important;
-        font-family: Arial, sans-serif !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 def calculate_solar_analysis(average_kwh_consumption):
     # Monthly kWh consumption
     monthly_kwh_consumption = average_kwh_consumption * 30
@@ -98,12 +56,12 @@ def calculate_solar_analysis(average_kwh_consumption):
             "Tax Rebate Amount for Solar System (30%)"
         ],
         "Value": [
-            f"{monthly_kwh_consumption:,.0f}",
-            f"${monthly_current_cost_peak:,.2f}",
-            f"{round(panels_needed_with_buffer)}",
-            f"${monthly_current_cost_regular:,.2f}",
-            f"${monthly_future_cost_peak:,.2f}",
-            f"${monthly_future_cost_regular:,.2f}",
+            f"{monthly_kwh_consumption} kWh",
+            f"${monthly_current_cost_peak:.2f}",
+            f"{round(panels_needed_with_buffer)} panels",
+            f"${monthly_current_cost_regular:.2f}",
+            f"${monthly_future_cost_peak:.2f}",
+            f"${monthly_future_cost_regular:.2f}",
             f"${total_solar_cost_min:,.2f} - ${total_solar_cost_max:,.2f}",
             f"${solar_tax_rebate_min:,.2f} - ${solar_tax_rebate_max:,.2f}"
         ]
@@ -113,17 +71,16 @@ def calculate_solar_analysis(average_kwh_consumption):
 
 # Streamlit UI
 st.title("Solar Energy Cost Analysis")
-
 st.markdown("## The Importance of Green Energy")
 st.markdown("""
-Switching to solar energy is not just about reducing your electricity bills—it is about securing a sustainable future.
+Switching to solar energy is not just about reducing your electricity bills—it's about securing a sustainable future.
 With rising electricity costs and environmental concerns, solar energy is the key to energy independence, lower
 carbon footprints, and long-term savings. 
 
-- **Save Money** - Protect yourself against future energy price hikes.
-- **Eco-Friendly** - Reduce reliance on fossil fuels and cut CO₂ emissions.
-- **Incentives & Rebates** - Get up to 30% tax credits for going solar.
-- **Energy Independence** - Own your energy production and rely less on the grid.
+✅ **Save Money** - Protect yourself against future energy price hikes.
+✅ **Eco-Friendly** - Reduce reliance on fossil fuels and cut CO₂ emissions.
+✅ **Incentives & Rebates** - Get up to 30% tax credits for going solar.
+✅ **Energy Independence** - Own your energy production and rely less on the grid.
 """)
 
 average_kwh = st.number_input("Enter your average daily kWh consumption:", min_value=1, value=45)
@@ -134,8 +91,8 @@ st.table(df)
 st.markdown("## Cost Comparison Over 20 Years")
 fig, ax = plt.subplots()
 years = list(range(1, 21))
-cost_projection = [float(df.iloc[4, 1].replace(',', '')) * ((1 + 0.07) ** i) for i in years]
-ax.plot(years, cost_projection, marker='o', linestyle='-', color='green', label="Projected Cost with 7% Increase")
+cost_projection = [df.iloc[4, 1] * ((1 + 0.07) ** i) for i in years]
+ax.plot(years, cost_projection, marker='o', linestyle='-', label="Projected Cost with 7% Increase")
 ax.set_xlabel("Years")
 ax.set_ylabel("Estimated Cost ($)")
 ax.legend()
@@ -144,4 +101,5 @@ st.pyplot(fig)
 if st.button("Download Excel Report"):
     excel_buffer = io.BytesIO()
     df.to_excel(excel_buffer, index=False, engine='openpyxl')
-    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key="download-btn", help="Download the Excel report")
+    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+
