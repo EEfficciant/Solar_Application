@@ -3,24 +3,26 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 
-# Apply custom styling for a green theme
+# Apply custom styling for a green theme with black text
 st.markdown(
     """
     <style>
     body {
         background-color: #e6ffe6;
+        color: black;
     }
     .stApp {
         background-color: #e6ffe6;
+        color: black;
     }
     .stTitle {
-        color: #008000;
+        color: black;
     }
     .stMarkdown {
-        color: #006400;
+        color: black;
     }
     .css-1aumxhk {
-        color: #008000;
+        color: black;
     }
     </style>
     """,
@@ -94,19 +96,19 @@ def calculate_solar_analysis(average_kwh_consumption):
     return pd.DataFrame(data)
 
 # Streamlit UI
-st.title("🌞 Solar Energy Cost Analysis")
-st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg", use_column_width=True)
+st.title("Solar Energy Cost Analysis")
+st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg", use_container_width=True)
 
-st.markdown("## 🌱 The Importance of Green Energy")
+st.markdown("## The Importance of Green Energy")
 st.markdown("""
-Switching to solar energy is not just about reducing your electricity bills—it's about securing a sustainable future.
+Switching to solar energy is not just about reducing your electricity bills—it is about securing a sustainable future.
 With rising electricity costs and environmental concerns, solar energy is the key to energy independence, lower
 carbon footprints, and long-term savings. 
 
-✅ **Save Money** - Protect yourself against future energy price hikes.
-✅ **Eco-Friendly** - Reduce reliance on fossil fuels and cut CO₂ emissions.
-✅ **Incentives & Rebates** - Get up to 30% tax credits for going solar.
-✅ **Energy Independence** - Own your energy production and rely less on the grid.
+- **Save Money** - Protect yourself against future energy price hikes.
+- **Eco-Friendly** - Reduce reliance on fossil fuels and cut CO₂ emissions.
+- **Incentives & Rebates** - Get up to 30% tax credits for going solar.
+- **Energy Independence** - Own your energy production and rely less on the grid.
 """)
 
 average_kwh = st.number_input("Enter your average daily kWh consumption:", min_value=1, value=45)
@@ -114,7 +116,7 @@ df = calculate_solar_analysis(average_kwh)
 st.table(df)
 
 # Visualization
-st.markdown("## 📊 Cost Comparison Over 20 Years")
+st.markdown("## Cost Comparison Over 20 Years")
 fig, ax = plt.subplots()
 years = list(range(1, 21))
 cost_projection = [float(df.iloc[4, 1].replace(',', '')) * ((1 + 0.07) ** i) for i in years]
@@ -124,7 +126,7 @@ ax.set_ylabel("Estimated Cost ($)")
 ax.legend()
 st.pyplot(fig)
 
-if st.button("📥 Download Excel Report"):
+if st.button("Download Excel Report"):
     excel_buffer = io.BytesIO()
     df.to_excel(excel_buffer, index=False, engine='openpyxl')
     st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
