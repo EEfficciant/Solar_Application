@@ -9,22 +9,19 @@ st.markdown(
     <style>
     body {
         background-color: #e6ffe6;
-        color: black;
+        color: black !important;
         background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
     }
-    .stApp {
-        background-color: rgba(230, 255, 230, 0.9);
-        color: black;
-    }
-    .stTitle, .stMarkdown, .css-1aumxhk, .stTable, .stDataFrame {
+    .stApp, .stTable, .stDataFrame, .stMarkdown, .stTitle, .css-1aumxhk, .stButton {
         color: black !important;
+        background-color: rgba(230, 255, 230, 0.9) !important;
     }
     .stDownloadButton {
-        background-color: white !important;
-        color: black !important;
+        background-color: darkgreen !important;
+        color: white !important;
         border: 1px solid black !important;
     }
     </style>
@@ -122,7 +119,7 @@ st.markdown("## Cost Comparison Over 20 Years")
 fig, ax = plt.subplots()
 years = list(range(1, 21))
 cost_projection = [float(df.iloc[4, 1].replace(',', '')) * ((1 + 0.07) ** i) for i in years]
-ax.plot(years, cost_projection, marker='o', linestyle='-', color='black', label="Projected Cost with 7% Increase")
+ax.plot(years, cost_projection, marker='o', linestyle='-', color='green', label="Projected Cost with 7% Increase")
 ax.set_xlabel("Years")
 ax.set_ylabel("Estimated Cost ($)")
 ax.legend()
