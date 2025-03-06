@@ -80,18 +80,18 @@ def calculate_solar_analysis(average_kwh_consumption):
             "Tax Rebate Amount for Solar System (30%)"
         ],
         "Value": [
-            monthly_kwh_consumption,
-            monthly_current_cost_peak,
-            round(panels_needed_with_buffer),
-            monthly_current_cost_regular,
-            monthly_future_cost_peak,
-            monthly_future_cost_regular,
+            str(monthly_kwh_consumption),
+            str(monthly_current_cost_peak),
+            str(round(panels_needed_with_buffer)),
+            str(monthly_current_cost_regular),
+            str(monthly_future_cost_peak),
+            str(monthly_future_cost_regular),
             f"${total_solar_cost_min:,.2f} - ${total_solar_cost_max:,.2f}",
             f"${solar_tax_rebate_min:,.2f} - ${solar_tax_rebate_max:,.2f}"
         ]
     }
 
-    return pd.DataFrame(data, dtype=float)
+    return pd.DataFrame(data)
 
 # Streamlit UI
 st.title("🌞 Solar Energy Cost Analysis")
@@ -117,7 +117,7 @@ st.table(df)
 st.markdown("## 📊 Cost Comparison Over 20 Years")
 fig, ax = plt.subplots()
 years = list(range(1, 21))
-cost_projection = [float(df.iloc[4, 1]) * ((1 + 0.07) ** i) for i in years]
+cost_projection = [float(df.iloc[4, 1].replace(',', '')) * ((1 + 0.07) ** i) for i in years]
 ax.plot(years, cost_projection, marker='o', linestyle='-', color='green', label="Projected Cost with 7% Increase")
 ax.set_xlabel("Years")
 ax.set_ylabel("Estimated Cost ($)")
