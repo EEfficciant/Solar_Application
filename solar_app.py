@@ -21,7 +21,7 @@ st.markdown(
     }
     .stDownloadButton {
         background-color: darkgreen !important;
-        color: white !important;
+        color: black !important;
         border: 1px solid black !important;
     }
     </style>
