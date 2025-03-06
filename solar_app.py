@@ -8,7 +8,7 @@ st.markdown(
     """
     <style>
     body {
-        background-color: black !important;
+        background-color: #e6ffe6;
         color: black !important;
         background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg');
         background-size: cover;
@@ -17,11 +17,11 @@ st.markdown(
     }
     .stApp, .stTable, .stDataFrame, .stMarkdown, .stTitle, .css-1aumxhk, .stButton, .stDownloadButton, .stTextInput, .stNumberInput, .stRadio, .stCheckbox, .stSelectbox, .stMultiselect, .stSlider, .stTextArea, .stColorPicker {
         color: black !important;
-        background-color: white !important;
+        background-color: rgba(230, 255, 230, 0.9) !important;
         border-color: black !important;
     }
     .stDownloadButton {
-        background-color: black !important;
+        background-color: white !important;
         color: black !important;
         border: 1px solid black !important;
     }
@@ -29,6 +29,12 @@ st.markdown(
         background-color: white !important;
         color: black !important;
         border: 1px solid black !important;
+    }
+    table {
+        color: black !important;
+    }
+    th, td {
+        color: black !important;
     }
     </style>
     """,
