@@ -15,12 +15,18 @@ st.markdown(
         background-repeat: no-repeat;
         background-position: center;
     }
-    .stApp, .stTable, .stDataFrame, .stMarkdown, .stTitle, .css-1aumxhk, .stButton {
+    .stApp, .stTable, .stDataFrame, .stMarkdown, .stTitle, .css-1aumxhk, .stButton, .stDownloadButton, .stTextInput, .stNumberInput, .stRadio, .stCheckbox, .stSelectbox, .stMultiselect, .stSlider, .stTextArea, .stColorPicker {
         color: black !important;
         background-color: rgba(230, 255, 230, 0.9) !important;
+        border-color: black !important;
     }
     .stDownloadButton {
-        background-color: darkgreen !important;
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid black !important;
+    }
+    .stButton>button {
+        background-color: white !important;
         color: black !important;
         border: 1px solid black !important;
     }
