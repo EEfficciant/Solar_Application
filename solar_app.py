@@ -39,6 +39,7 @@ st.markdown(
     th, td {
         color: black !important;
         font-family: Arial, sans-serif !important;
+        text-align: left !important;
     }
     </style>
     """,
@@ -98,12 +99,12 @@ def calculate_solar_analysis(average_kwh_consumption):
             "Tax Rebate Amount for Solar System (30%)"
         ],
         "Value": [
-            monthly_kwh_consumption,
-            monthly_current_cost_peak,
-            round(panels_needed_with_buffer),
-            monthly_current_cost_regular,
-            monthly_future_cost_peak,
-            monthly_future_cost_regular,
+            f"{monthly_kwh_consumption:,.0f}",
+            f"${monthly_current_cost_peak:,.2f}",
+            f"{round(panels_needed_with_buffer)}",
+            f"${monthly_current_cost_regular:,.2f}",
+            f"${monthly_future_cost_peak:,.2f}",
+            f"${monthly_future_cost_regular:,.2f}",
             f"${total_solar_cost_min:,.2f} - ${total_solar_cost_max:,.2f}",
             f"${solar_tax_rebate_min:,.2f} - ${solar_tax_rebate_max:,.2f}"
         ]
