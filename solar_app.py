@@ -8,7 +8,7 @@ st.markdown(
     """
     <style>
     body {
-        background-color: #e6ffe6;
+        background-color: black !important;
         color: black !important;
         background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Solar_panels_on_a_roof.jpg/800px-Solar_panels_on_a_roof.jpg');
         background-size: cover;
