@@ -55,7 +55,6 @@ def calculate_solar_analysis(average_kwh_consumption):
     current_rate_regular = 0.25  # Regular hour rate per kWh
     annual_increase_rate = 0.07  # 7% yearly increase
     tax_rebate_percentage = 30  # Tax rebate percentage
-    finance_rate = 0.0126  # Monthly finance rate
 
     # Electricity cost calculations
     current_cost_peak = average_kwh_consumption * current_rate_peak
@@ -86,43 +85,28 @@ def calculate_solar_analysis(average_kwh_consumption):
     # Tax rebate calculation
     solar_tax_rebate_min = total_solar_cost_min * (tax_rebate_percentage / 100)
     solar_tax_rebate_max = total_solar_cost_max * (tax_rebate_percentage / 100)
-    net_solar_cost_min = total_solar_cost_min - solar_tax_rebate_min
-    net_solar_cost_max = total_solar_cost_max - solar_tax_rebate_max
-
-    # Finance calculations
-    monthly_finance_payment_min = net_solar_cost_min * finance_rate
-    monthly_finance_payment_max = net_solar_cost_max * finance_rate
-
-    # Comparison with electricity bill
-    avg_monthly_electricity_cost = (monthly_current_cost_peak + monthly_current_cost_regular) / 2
-    finance_vs_electricity_min = monthly_finance_payment_min - avg_monthly_electricity_cost
-    finance_vs_electricity_max = monthly_finance_payment_max - avg_monthly_electricity_cost
 
     # Creating the table
     data = {
         "Category": [
-            "1. Average Monthly kWh Consumption",
-            "2. Number of Solar Panels Required (+10% Buffer)",  # Swapped with old number 3
-            "3. Estimated Monthly Electricity Cost Today (Peak Hours)",  # Swapped with old number 2
-            "4. Estimated Monthly Electricity Cost Today (Regular Hours)",
-            "5. Estimated Monthly Cost in 20 Years (Peak Hours)",
-            "6. Estimated Monthly Cost in 20 Years (Regular Hours)",
-            "7. Estimated Solar System Cost (400W Panels)",
-            "8. Tax Rebate Amount for Solar System (30%)",
-            "9. Monthly Finance Payment After Tax Rebate",
-            "10. Monthly Finance Payment Compared to Electricity Bill"
+            "Average Monthly kWh Consumption",
+            "Estimated Monthly Electricity Cost Today (Peak Hours)",
+            "Number of Solar Panels Required (+10% Buffer)",
+            "Estimated Monthly Electricity Cost Today (Regular Hours)",
+            "Estimated Monthly Cost in 20 Years (Peak Hours)",
+            "Estimated Monthly Cost in 20 Years (Regular Hours)",
+            "Estimated Solar System Cost (400W Panels)",
+            "Tax Rebate Amount for Solar System (30%)"
         ],
         "Value": [
             f"{monthly_kwh_consumption:,.0f}",
-            f"{round(panels_needed_with_buffer)}",  # Swapped with old number 3
-            f"${monthly_current_cost_peak:,.2f}",  # Swapped with old number 2
+            f"${monthly_current_cost_peak:,.2f}",
+            f"{round(panels_needed_with_buffer)}",
             f"${monthly_current_cost_regular:,.2f}",
             f"${monthly_future_cost_peak:,.2f}",
             f"${monthly_future_cost_regular:,.2f}",
             f"${total_solar_cost_min:,.2f} - ${total_solar_cost_max:,.2f}",
-            f"${solar_tax_rebate_min:,.2f} - ${solar_tax_rebate_max:,.2f}",
-            f"${monthly_finance_payment_min:,.2f} - ${monthly_finance_payment_max:,.2f}",
-            f"${finance_vs_electricity_min:,.2f} - ${finance_vs_electricity_max:,.2f}"
+            f"${solar_tax_rebate_min:,.2f} - ${solar_tax_rebate_max:,.2f}"
         ]
     }
 
@@ -143,11 +127,17 @@ carbon footprints, and long-term savings.
 - **Energy Independence** - Own your energy production and rely less on the grid.
 """)
 
-st.markdown("<span style='color:red;'>Enter your average daily kWh consumption:</span>", unsafe_allow_html=True)
+
 
 average_kwh = st.number_input("Enter your average daily kWh consumption:", min_value=1, value=45)
 df = calculate_solar_analysis(average_kwh)
 st.table(df)
+
+# Add back the Excel download button
+if st.button("Download Excel Report"):
+    excel_buffer = io.BytesIO()
+    df.to_excel(excel_buffer, index=False, engine='openpyxl')
+    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key="download-btn", help="Download the Excel report")
 
 # Visualization
 st.markdown("## Cost Comparison Over 20 Years")
@@ -159,3 +149,8 @@ ax.set_xlabel("Years")
 ax.set_ylabel("Estimated Cost ($)")
 ax.legend()
 st.pyplot(fig)
+
+if st.button("Download Excel Report"):
+    excel_buffer = io.BytesIO()
+    df.to_excel(excel_buffer, index=False, engine='openpyxl')
+    st.download_button(label="Click to Download", data=excel_buffer.getvalue(), file_name="solar_analysis.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", key="download-btn", help="Download the Excel report")
