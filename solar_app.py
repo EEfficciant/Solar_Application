@@ -126,7 +126,7 @@ carbon footprints, and long-term savings.
 - **Energy Independence** - Own your energy production and rely less on the grid.
 """)
 
-st.markdown("# <span style='color:red;'><b>Enter your average daily kWh consumption:</b></span>", unsafe_allow_html=True)
+st.markdown("<span style='color:red;'>Enter your average daily kWh consumption:</span>", unsafe_allow_html=True)
 
 average_kwh = st.number_input("Enter your average daily kWh consumption:", min_value=1, value=45)
 df = calculate_solar_analysis(average_kwh)
